@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BeerDrive.Domain/BeerDrive.Domain.csproj" />
+  <Project Path="BeerDrive.Tests/BeerDrive.Tests.csproj" />
+</Solution>
