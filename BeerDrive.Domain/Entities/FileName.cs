@@ -25,10 +25,10 @@ public sealed class FileName : ValueObject<FileName>
     {
         if(other == null) return false;
 
-        if(other.GetType() != this.GetType()) return false;
+        if(other.GetType() != GetType()) return false;
 
-        return this.Name.GetHashCode() == other.Name.GetHashCode() 
-            && this.Extension.GetHashCode() == other.Extension.GetHashCode();
+        return Name.GetHashCode() == other.Name.GetHashCode() 
+            && Extension.GetHashCode() == other.Extension.GetHashCode();
     }
 
     protected override int GetHashCodeCore()

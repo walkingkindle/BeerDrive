@@ -8,17 +8,17 @@ namespace BeerDrive.Tests.Domain
         [Fact]
         public void Create_Should_Succeed_With_Valid_Data()
         {
-            var result = FileSize.Create(100, "MB");
+            var result = FileSize.Create(100, FileSizeUnit.MB);
 
             result.IsSuccess.Should().BeTrue();
             result.Value.SizeValue.Should().Be(100);
-            result.Value.Unit.Should().Be("MB");
+            result.Value.Unit.Should().Be(FileSizeUnit.MB);
         }
 
         [Fact]
         public void Create_Should_Fail_When_Size_Is_Negative()
         {
-            var result = FileSize.Create(-1, "MB");
+            var result = FileSize.Create(-1, FileSizeUnit.MB);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("Value must be a valid numebr");
@@ -27,16 +27,7 @@ namespace BeerDrive.Tests.Domain
         [Fact]
         public void Create_Should_Fail_When_Unit_Is_Empty()
         {
-            var result = FileSize.Create(100, "");
-
-            result.IsFailure.Should().BeTrue();
-            result.Error.Should().Be("Unit must be a valid value");
-        }
-
-        [Fact]
-        public void Create_Should_Fail_When_Unit_Is_Unsupported()
-        {
-            var result = FileSize.Create(100, "TBX");
+            var result = FileSize.Create(100, (FileSizeUnit)9999);
 
             result.IsFailure.Should().BeTrue();
             result.Error.Should().Be("Unsupported file unit");
@@ -45,8 +36,8 @@ namespace BeerDrive.Tests.Domain
         [Fact]
         public void Two_FileSizes_With_Same_Values_Should_Be_Equal()
         {
-            var first = FileSize.Create(100, "MB").Value;
-            var second = FileSize.Create(100, "MB").Value;
+            var first = FileSize.Create(100, FileSizeUnit.MB).Value;
+            var second = FileSize.Create(100, FileSizeUnit.MB).Value;
 
             first.Should().Be(second);
         }
@@ -54,8 +45,8 @@ namespace BeerDrive.Tests.Domain
         [Fact]
         public void Two_FileSizes_With_Different_Values_Should_Not_Be_Equal()
         {
-            var first = FileSize.Create(100, "MB").Value;
-            var second = FileSize.Create(200, "MB").Value;
+            var first = FileSize.Create(100, FileSizeUnit.MB).Value;
+            var second = FileSize.Create(200, FileSizeUnit.MB).Value;
 
             first.Should().NotBe(second);
         }
@@ -63,8 +54,8 @@ namespace BeerDrive.Tests.Domain
         [Fact]
         public void Two_FileSizes_With_Different_Units_Should_Not_Be_Equal()
         {
-            var first = FileSize.Create(100, "MB").Value;
-            var second = FileSize.Create(100, "KB").Value;
+            var first = FileSize.Create(100, FileSizeUnit.MB).Value;
+            var second = FileSize.Create(100, FileSizeUnit.KB).Value;
 
             first.Should().NotBe(second);
         }
@@ -72,8 +63,8 @@ namespace BeerDrive.Tests.Domain
         [Fact]
         public void Equal_Objects_Should_Have_Same_HashCode()
         {
-            var first = FileSize.Create(100, "MB").Value;
-            var second = FileSize.Create(100, "MB").Value;
+            var first = FileSize.Create(100, FileSizeUnit.MB).Value;
+            var second = FileSize.Create(100, FileSizeUnit.MB).Value;
 
             first.GetHashCode().Should().Be(second.GetHashCode());
         }

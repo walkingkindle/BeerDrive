@@ -1,4 +1,5 @@
 ﻿using BeerDrive.Domain.Entities;
+using CSharpFunctionalExtensions;
 
 namespace BeerDrive.Tests.Domain;
 
@@ -11,7 +12,7 @@ public class FileNameTests
 
         string fileName = "aezakmi";
 
-        var result = FileName.Create(fileName, extension);
+        Result<FileName> result = FileName.Create(fileName, extension);
 
         Assert.True(result.IsSuccess);
 
@@ -29,7 +30,7 @@ public class FileNameTests
     {
         string extension = ".txt";
 
-        var result = FileName.Create(extension, filename!);
+        Result<FileName> result = FileName.Create(extension, filename!);
 
         Assert.False(result.IsSuccess);
     }
@@ -40,7 +41,7 @@ public class FileNameTests
     [InlineData("xlsx")]
     public void FileName_Create_Should_Fail_UnsupportedExtensions(string extension)
     {
-        var result = FileName.Create("aezakmi", extension);
+        Result<FileName> result = FileName.Create("aezakmi", extension);
 
         Assert.False(result.IsSuccess);
     }
@@ -48,7 +49,9 @@ public class FileNameTests
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
+#pragma warning disable xUnit1012 // Null should only be used for nullable parameters
     [InlineData(null)]
+#pragma warning restore xUnit1012 // Null should only be used for nullable parameters
     public void FileName_Create_Should_Fail_Null_Extension(string extension)
     {
         var result = FileName.Create("aezakmi", extension);

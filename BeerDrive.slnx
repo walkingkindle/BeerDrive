@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="BeerDrive.Application/BeerDrive.Application.csproj" />
   <Project Path="BeerDrive.Domain/BeerDrive.Domain.csproj" />
+  <Project Path="BeerDrive.Infrastructure/BeerDrive.Infrastructure.csproj" />
   <Project Path="BeerDrive.Tests/BeerDrive.Tests.csproj" />
 </Solution>

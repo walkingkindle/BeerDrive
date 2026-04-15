@@ -1,9 +1,6 @@
-﻿namespace BeerDrive.Domain.Entities
-{
-    internal static class FileHelpers
-    {
-        internal static readonly List<string> SupportedExtensions = ["ppt", "txt", "png"];
+﻿namespace BeerDrive.Domain.Entities;
 
-        internal static readonly List<string> SupportedFileUnits = ["KB","MB","GB"];
-    }
+internal static class FileHelpers
+{
+    internal static readonly List<string> SupportedExtensions = ["ppt", "txt", "png"];
 }
