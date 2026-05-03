@@ -18,33 +18,38 @@ public sealed class FileEntry : Entity<int>
 
     public static Result<FileEntry> Create(FileName fileName, FileType fileType, FileSize fileSize)
     {
-        return Result.Success()
-        .Ensure(() => fileName != null, "File name must not be null")
-        .Ensure(() => fileSize != null, "File size must not be null")
-        .Ensure(() => Enum.IsDefined(typeof(FileType), fileType), "Invalid File Type")
-        .Map(() => 
-        {
-            var now = DateTimeOffset.UtcNow;
-
-            return new FileEntry
+        return Result
+            .Success()
+            .Ensure(() => fileName != null, "File name must not be null")
+            .Ensure(() => fileSize != null, "File size must not be null")
+            .Ensure(() => Enum.IsDefined(typeof(FileType), fileType), "Invalid File Type")
+            .Map(() =>
             {
-                Name = fileName,
-                Type = fileType,
-                Size = fileSize,
-                CreatedAt = now,
-                UpdatedAt = now
-            };
-        });
+                var now = DateTimeOffset.UtcNow;
+
+                return new FileEntry
+                {
+                    Name = fileName,
+                    Type = fileType,
+                    Size = fileSize,
+                    CreatedAt = now,
+                    UpdatedAt = now,
+                };
+            });
     }
-    public static Result<FileEntry> Create(string name, string extension, long size, FileSizeUnit unit, FileType type)
+
+    public static Result<FileEntry> Create(
+        string name,
+        string extension,
+        long size,
+        FileSizeUnit unit,
+        FileType type
+    )
     {
-        return FileName.Create(name, extension)
+        return FileName
+            .Create(name, extension)
             .Bind(fileName =>
-                FileSize.Create(size, unit)
-                    .Bind(fileSize =>
-                        Create(fileName, type, fileSize)
-                    )
+                FileSize.Create(size, unit).Bind(fileSize => Create(fileName, type, fileSize))
             );
     }
-
 }

@@ -5,16 +5,13 @@ namespace BeerDrive.Infrastructure;
 
 public class BeerDriveDbContext : DbContext
 {
-    public DbSet<FileEntry> FileEntries => Set<FileEntry>();
+    public BeerDriveDbContext(DbContextOptions<BeerDriveDbContext> options)
+        : base(options) { }
 
-    public BeerDriveDbContext(DbContextOptions<BeerDriveDbContext> options) : base(options)
-    {
-        
-    }
+    public DbSet<FileEntry> FileEntries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BeerDriveDbContext).Assembly);
     }
-
 }

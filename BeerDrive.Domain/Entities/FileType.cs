@@ -4,10 +4,11 @@ public enum FileType
 {
     Folder,
     Word,
+    Text,
     Excel,
     Pdf,
     Image,
     Zip,
     Video,
-    Ppt
+    Ppt,
 }

@@ -6,12 +6,18 @@ public class LocalFileStorage : IFileStorage
 {
     public async Task<string> SaveFileAsync(Stream stream, string fileName, string extension)
     {
-        var path = Path.Combine("uploads", $"{Guid.NewGuid()}{extension}");
+        CreateIfNotExists("uploads");
+        var path = Path.Combine("uploads", $"{Guid.NewGuid()}.{extension}");
 
         using var fileStream = new FileStream(path, FileMode.Create);
 
         await stream.CopyToAsync(fileStream);
 
         return path;
+    }
+
+    private static void CreateIfNotExists(string v)
+    {
+        Directory.CreateDirectory(v);
     }
 }

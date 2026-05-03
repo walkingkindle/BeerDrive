@@ -1,7 +1,7 @@
-﻿using BeerDrive.Domain.Entities;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using BeerDrive.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace BeerDrive.Application.Models;
 
@@ -22,11 +22,8 @@ public class UploadFileRequest
     public string Extension { get; init; } = default!;
 
     [JsonPropertyName("unit")]
-    [StringLength(2)]
-    [Required]
     public FileSizeUnit Unit { get; init; }
 
     [JsonPropertyName("type")]
-    [Required]
     public FileType Type { get; init; }
 }
